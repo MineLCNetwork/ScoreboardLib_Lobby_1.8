@@ -1,0 +1,6 @@
+name: ScoreboardLib
+version: 1.0.6
+description: Utilizing scoreboards for a UI enhancement.
+author: TigerHix
+main: me.tigerhix.lib.scoreboard.ScoreboardLib
+depend: [MineLC_CORE]
