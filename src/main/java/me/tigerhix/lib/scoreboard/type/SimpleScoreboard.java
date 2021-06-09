@@ -6,10 +6,8 @@ import com.minelc.CORE.Controller.Jugador;
 import com.minelc.CORE.Controller.Ranks;
 import me.tigerhix.lib.scoreboard.ScoreboardLib;
 import me.tigerhix.lib.scoreboard.common.Strings;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -24,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SimpleScoreboard implements Scoreboard {
 
-    private static final String TEAM_PREFIX = "Scoreboard_";
+    private static final String TEAM_PREFIX = "S_";
     private static int TEAM_COUNTER = 0;
 
     private final org.bukkit.scoreboard.Scoreboard scoreboard;
@@ -46,14 +44,24 @@ public class SimpleScoreboard implements Scoreboard {
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         scoreboard.registerNewObjective("board", "dummy").setDisplaySlot(DisplaySlot.SIDEBAR);
         objective = scoreboard.getObjective(DisplaySlot.SIDEBAR);
-
+        Objective objHealth = scoreboard.getObjective("ShowHealth");
+        if (objHealth == null) {
+            objHealth = scoreboard.registerNewObjective("ShowHealth", "health");
+            objHealth.setDisplaySlot(DisplaySlot.BELOW_NAME);
+            objHealth.setDisplayName(ChatColor.DARK_RED + "❤");
+        }
         // pruebas
         Team tm = scoreboard.registerNewTeam(holder.getName());
         Jugador j = Jugador.getJugador(holder);
         if (j.isHideRank()) {
             tm.setPrefix(ChatColor.GRAY.toString());
+            tm.setColor(ChatColor.GRAY);
         } else {
             switch (j.getRank()) {
+                case DEFAULT:
+                    tm.setPrefix(ChatColor.GRAY.toString());
+                    tm.setColor(ChatColor.GRAY);
+                    break;
                 case PREMIUM:
                     tm.setPrefix(ChatColor.YELLOW.toString());
                     break;
@@ -93,6 +101,7 @@ public class SimpleScoreboard implements Scoreboard {
                 default:
                     tm.setPrefix(ChatColor.GRAY.toString());
             }
+            tm.setColor(j.getNameTagColor());
         }
         tm.addEntry(holder.getName());
     }
@@ -223,7 +232,9 @@ public class SimpleScoreboard implements Scoreboard {
 
                 if (jugTM.isHideRank()) {
                     tm.setPrefix(ChatColor.GRAY.toString());
+                    tm.setColor(ChatColor.GRAY);
                 } else {
+
                     switch (jugTM.getRank()) {
                         case PREMIUM:
                             tm.setPrefix(ChatColor.YELLOW.toString());
@@ -264,6 +275,7 @@ public class SimpleScoreboard implements Scoreboard {
                         default:
                             tm.setPrefix(ChatColor.GRAY.toString());
                     }
+                    tm.setColor(jugTM.getNameTagColor());
                 }
                 tm.addPlayer(tmOnline);
             } catch(Exception ex) {
@@ -389,9 +401,6 @@ public class SimpleScoreboard implements Scoreboard {
             return false;
         }
 
-        @Override
-        public void setBanned(boolean banned) {
-        }
 
         @Override
         public boolean isWhitelisted() {
@@ -425,6 +434,96 @@ public class SimpleScoreboard implements Scoreboard {
         @Override
         public Location getBedSpawnLocation() {
             return null;
+        }
+
+        @Override
+        public void incrementStatistic(Statistic statistic) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void decrementStatistic(Statistic statistic) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void incrementStatistic(Statistic statistic, int i) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void decrementStatistic(Statistic statistic, int i) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void setStatistic(Statistic statistic, int i) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public int getStatistic(Statistic statistic) throws IllegalArgumentException {
+            return 0;
+        }
+
+        @Override
+        public void incrementStatistic(Statistic statistic, Material material) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void decrementStatistic(Statistic statistic, Material material) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public int getStatistic(Statistic statistic, Material material) throws IllegalArgumentException {
+            return 0;
+        }
+
+        @Override
+        public void incrementStatistic(Statistic statistic, Material material, int i) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void decrementStatistic(Statistic statistic, Material material, int i) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void setStatistic(Statistic statistic, Material material, int i) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void incrementStatistic(Statistic statistic, EntityType entityType) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void decrementStatistic(Statistic statistic, EntityType entityType) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public int getStatistic(Statistic statistic, EntityType entityType) throws IllegalArgumentException {
+            return 0;
+        }
+
+        @Override
+        public void incrementStatistic(Statistic statistic, EntityType entityType, int i) throws IllegalArgumentException {
+
+        }
+
+        @Override
+        public void decrementStatistic(Statistic statistic, EntityType entityType, int i) {
+
+        }
+
+        @Override
+        public void setStatistic(Statistic statistic, EntityType entityType, int i) {
+
         }
 
         @Override
