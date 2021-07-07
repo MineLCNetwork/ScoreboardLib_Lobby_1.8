@@ -2,6 +2,8 @@ package me.tigerhix.lib.scoreboard;
 
 import me.tigerhix.lib.scoreboard.type.Scoreboard;
 import me.tigerhix.lib.scoreboard.type.SimpleScoreboard;
+import me.tigerhix.lib.scoreboard.type.SimpleScoreboard1_8;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +22,11 @@ public final class ScoreboardLib extends JavaPlugin {
     }
 
     public static Scoreboard createScoreboard(Player holder) {
-        return new SimpleScoreboard(holder);
+        if(Bukkit.getServer().getVersion().contains("1.8")){
+            return new SimpleScoreboard1_8(holder);
+        } else {
+            return new SimpleScoreboard(holder);
+        }
     }
 
     @Override

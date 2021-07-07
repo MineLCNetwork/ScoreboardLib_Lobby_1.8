@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SimpleScoreboard implements Scoreboard {
+public class SimpleScoreboard1_8 implements Scoreboard {
 
     private static final String TEAM_PREFIX = "S_";
     private static int TEAM_COUNTER = 0;
@@ -37,7 +37,7 @@ public class SimpleScoreboard implements Scoreboard {
     private Table<Team, String, String> teamCache = HashBasedTable.create();
     private BukkitRunnable updateTask;
 
-    public SimpleScoreboard(Player holder) {
+    public SimpleScoreboard1_8(Player holder) {
         this.holder = holder;
         // Initiate the Bukkit scoreboard
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -51,25 +51,20 @@ public class SimpleScoreboard implements Scoreboard {
         }
         // pruebas
         Team tm = scoreboard.registerNewTeam(holder.getName());
-
         Jugador j = Jugador.getJugador(holder);
         if (j.isHideRank()) {
             if(j.isOnlineMode()){
                 tm.setPrefix(ChatColor.YELLOW.toString());
-                tm.setColor(ChatColor.YELLOW);
             } else {
                 tm.setPrefix(ChatColor.GRAY.toString());
-                tm.setColor(ChatColor.GRAY);
             }
         } else {
-            tm.setPrefix(ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_prefix()) +" "+ j.getNameTagColor());
+            tm.setPrefix(ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_prefix()) + "" + j.getNameTagColor());
             if(!j.getRank().getTab_suffix().isEmpty())
-                tm.setSuffix(ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_suffix()));
+                tm.setSuffix(" " + ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_suffix()));
 
-            tm.setColor(j.getNameTagColor());
 
         }
-
         tm.addEntry(holder.getName());
     }
 
@@ -130,7 +125,7 @@ public class SimpleScoreboard implements Scoreboard {
     }
 
     @Override
-    public SimpleScoreboard setUpdateInterval(long updateInterval) {
+    public SimpleScoreboard1_8 setUpdateInterval(long updateInterval) {
         if (activated) throw new IllegalStateException("Scoreboard is already activated");
         this.updateInterval = updateInterval;
         return this;
@@ -200,20 +195,23 @@ public class SimpleScoreboard implements Scoreboard {
                 if (jugTM.isHideRank()) {
                     if(jugTM.isOnlineMode()){
                         tm.setPrefix(ChatColor.YELLOW.toString());
-                        tm.setColor(ChatColor.YELLOW);
+
                     } else {
                         tm.setPrefix(ChatColor.GRAY.toString());
-                        tm.setColor(ChatColor.GRAY);
+
                     }
                 } else {
-                    tm.setPrefix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_prefix()) + " " + jugTM.getNameTagColor());
-                    if(!jugTM.getRank().getTab_suffix().isEmpty())
-                        tm.setSuffix(" " + ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_suffix()));
-
-
-                    tm.setColor(jugTM.getNameTagColor());
+                    if(jugTM.getRank().getName().equalsIgnoreCase("DEFAULT")){
+                        tm.setPrefix(ChatColor.GRAY.toString());
+                    }else if(jugTM.getRank().getName().equalsIgnoreCase("PREMIUM")){
+                        tm.setPrefix(ChatColor.YELLOW.toString());
+                    }
+                    else{
+                        tm.setPrefix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_prefix()) +" "+ jugTM.getNameTagColor());
+                        if(!jugTM.getRank().getTab_suffix().isEmpty())
+                            tm.setSuffix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_suffix()));
+                    }
                 }
-
                 tm.addPlayer(tmOnline);
             } catch(Exception ex) {
                 ex.printStackTrace();
@@ -339,6 +337,11 @@ public class SimpleScoreboard implements Scoreboard {
         }
 
 
+        public void setBanned(boolean b) {
+
+        }
+
+
         @Override
         public boolean isWhitelisted() {
             return false;
@@ -373,92 +376,74 @@ public class SimpleScoreboard implements Scoreboard {
             return null;
         }
 
-        @Override
         public void incrementStatistic(Statistic statistic) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void decrementStatistic(Statistic statistic) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void incrementStatistic(Statistic statistic, int i) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void decrementStatistic(Statistic statistic, int i) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void setStatistic(Statistic statistic, int i) throws IllegalArgumentException {
 
         }
 
-        @Override
         public int getStatistic(Statistic statistic) throws IllegalArgumentException {
             return 0;
         }
 
-        @Override
         public void incrementStatistic(Statistic statistic, Material material) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void decrementStatistic(Statistic statistic, Material material) throws IllegalArgumentException {
 
         }
 
-        @Override
         public int getStatistic(Statistic statistic, Material material) throws IllegalArgumentException {
             return 0;
         }
 
-        @Override
         public void incrementStatistic(Statistic statistic, Material material, int i) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void decrementStatistic(Statistic statistic, Material material, int i) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void setStatistic(Statistic statistic, Material material, int i) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void incrementStatistic(Statistic statistic, EntityType entityType) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void decrementStatistic(Statistic statistic, EntityType entityType) throws IllegalArgumentException {
 
         }
 
-        @Override
         public int getStatistic(Statistic statistic, EntityType entityType) throws IllegalArgumentException {
             return 0;
         }
 
-        @Override
         public void incrementStatistic(Statistic statistic, EntityType entityType, int i) throws IllegalArgumentException {
 
         }
 
-        @Override
         public void decrementStatistic(Statistic statistic, EntityType entityType, int i) {
 
         }
 
-        @Override
         public void setStatistic(Statistic statistic, EntityType entityType, int i) {
 
         }
