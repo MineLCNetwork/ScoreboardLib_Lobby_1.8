@@ -62,11 +62,20 @@ public class SimpleScoreboard implements Scoreboard {
                 tm.setColor(ChatColor.GRAY);
             }
         } else {
-            tm.setPrefix(ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_prefix()) +" "+ j.getNameTagColor());
-            if(!j.getRank().getTab_suffix().isEmpty())
-                tm.setSuffix(ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_suffix()));
 
-            tm.setColor(j.getNameTagColor());
+            if(j.getRank().getName().equalsIgnoreCase("DEFAULT")){
+                tm.setPrefix(ChatColor.GRAY.toString());
+                tm.setColor(ChatColor.GRAY);
+            }else if(j.getRank().getName().equalsIgnoreCase("PREMIUM")){
+                tm.setPrefix(ChatColor.YELLOW.toString());
+                tm.setColor(ChatColor.YELLOW);
+            }
+            else{
+                tm.setPrefix(ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_prefix()) +" "+ j.getNameTagColor());
+                tm.setColor(j.getNameTagColor());
+                if(!j.getRank().getTab_suffix().isEmpty())
+                    tm.setSuffix(ChatColor.translateAlternateColorCodes('&', j.getRank().getTab_suffix()));
+            }
 
         }
 
@@ -206,12 +215,18 @@ public class SimpleScoreboard implements Scoreboard {
                         tm.setColor(ChatColor.GRAY);
                     }
                 } else {
-                    tm.setPrefix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_prefix()) + " " + jugTM.getNameTagColor());
-                    if(!jugTM.getRank().getTab_suffix().isEmpty())
-                        tm.setSuffix(" " + ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_suffix()));
+                    if(jugTM.getRank().getName().equalsIgnoreCase("DEFAULT")){
+                        tm.setPrefix(ChatColor.GRAY.toString());
+                    }else if(jugTM.getRank().getName().equalsIgnoreCase("PREMIUM")){
+                        tm.setPrefix(ChatColor.YELLOW.toString());
+                    }
+                    else{
+                        tm.setPrefix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_prefix()) +" "+ jugTM.getNameTagColor());
+                        tm.setColor(jugTM.getNameTagColor());
+                        if(!jugTM.getRank().getTab_suffix().isEmpty())
+                            tm.setSuffix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_suffix()));
+                    }
 
-
-                    tm.setColor(jugTM.getNameTagColor());
                 }
 
                 tm.addPlayer(tmOnline);

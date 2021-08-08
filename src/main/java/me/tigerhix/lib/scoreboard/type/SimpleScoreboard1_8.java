@@ -178,7 +178,6 @@ public class SimpleScoreboard1_8 implements Scoreboard {
             current.put(faker, score);
         }
         appeared.clear();
-        // Set prefix for others
         for(Player tmOnline : Bukkit.getOnlinePlayers()){
             Jugador jugTM = Jugador.getJugador(tmOnline);
 
