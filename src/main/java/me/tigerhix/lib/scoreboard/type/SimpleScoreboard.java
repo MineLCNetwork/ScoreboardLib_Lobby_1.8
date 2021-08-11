@@ -217,8 +217,10 @@ public class SimpleScoreboard implements Scoreboard {
                 } else {
                     if(jugTM.getRank().getName().equalsIgnoreCase("DEFAULT")){
                         tm.setPrefix(ChatColor.GRAY.toString());
+                        tm.setColor(ChatColor.GRAY);
                     }else if(jugTM.getRank().getName().equalsIgnoreCase("PREMIUM")){
                         tm.setPrefix(ChatColor.YELLOW.toString());
+                        tm.setColor(ChatColor.YELLOW);
                     }
                     else{
                         tm.setPrefix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_prefix()) +" "+ jugTM.getNameTagColor());

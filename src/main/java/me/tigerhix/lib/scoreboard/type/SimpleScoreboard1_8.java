@@ -194,7 +194,6 @@ public class SimpleScoreboard1_8 implements Scoreboard {
                 if (jugTM.isHideRank()) {
                     if(jugTM.isOnlineMode()){
                         tm.setPrefix(ChatColor.YELLOW.toString());
-
                     } else {
                         tm.setPrefix(ChatColor.GRAY.toString());
 
@@ -207,7 +206,7 @@ public class SimpleScoreboard1_8 implements Scoreboard {
                     }
                     else{
                         tm.setPrefix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_prefix()) +" "+ jugTM.getNameTagColor());
-                        if(!jugTM.getRank().getTab_suffix().isEmpty())
+                        if(!jugTM.getRank().getTab_suffix().equalsIgnoreCase("") )
                             tm.setSuffix(ChatColor.translateAlternateColorCodes('&', jugTM.getRank().getTab_suffix()));
                     }
                 }
